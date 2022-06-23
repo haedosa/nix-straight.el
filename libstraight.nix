@@ -51,6 +51,7 @@ let
   packagesJSON = { emacsInitFile, emacsLoadFiles, emacsArgs }: stdenv.mkDerivation {
     name = "emacs-straight-packages.json";
     buildInputs = [ emacs git ];
+    propagatedBuildInputs = [ git ];
     buildPhase = ":";
     installPhase = ''
       runHook preInstall
@@ -69,6 +70,7 @@ let
     name = "straight-emacs-env";
     buildPhase = ":";
     buildInputs = [ emacs git ];
+    propagatedBuildInputs = [ git ];
     installPhase = ''
       runHook preInstall
 
