@@ -59,6 +59,7 @@ let
             --batch \
             --directory=${epkgs.straight}/share/emacs/site-lisp \
             --load=${./setup.el} \
+            --eval="(setq exec-path (append exec-path '("${git}/bin")))""
             ${concatMapStringsSep "\n" (f: "--load=${f}") emacsLoadFiles} \
             --eval="(nix-straight-get-used-packages \"${emacsInitFile}\")" \
             ${escapeShellArgs emacsArgs} > $out
@@ -81,6 +82,7 @@ let
             --directory=${epkgs.straight}/share/emacs/site-lisp \
             --load=${./setup.el} \
             ${concatMapStringsSep "\n" (f: "--load=${f}") emacsLoadFiles} \
+            --eval="(setq exec-path (append exec-path '("${git}/bin")))""
             --eval="(nix-straight-build-packages \"${emacsInitFile}\")" ${escapeShellArgs emacsArgs}
 
       runHook postInstall
