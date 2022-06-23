@@ -1,5 +1,5 @@
 { abortOnNotFound ? true,
-  lib, stdenv, epkgs, emacs, writeScript }:
+  lib, stdenv, epkgs, emacs, writeScript, git }:
 
 let
   inherit (builtins) filter trace;
@@ -50,7 +50,7 @@ let
 
   packagesJSON = { emacsInitFile, emacsLoadFiles, emacsArgs }: stdenv.mkDerivation {
     name = "emacs-straight-packages.json";
-    buildInputs = [ emacs ];
+    buildInputs = [ emacs git ];
     buildPhase = ":";
     installPhase = ''
       runHook preInstall
@@ -68,7 +68,7 @@ let
   emacsEnv = { emacsInitFile, emacsLoadFiles, emacsArgs }: { packages, straightDir }: stdenv.mkDerivation {
     name = "straight-emacs-env";
     buildPhase = ":";
-    buildInputs = [ emacs ];
+    buildInputs = [ emacs git ];
     installPhase = ''
       runHook preInstall
 
